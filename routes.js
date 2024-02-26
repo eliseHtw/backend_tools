@@ -38,5 +38,22 @@ router.post('/tools', async(req, res) => {
     }
 });
 
+// get one entry via id
+router.get('/tools/:id', async(req, res) => {
+    const query = `SELECT * FROM tools WHERE id = $1`;
+
+    try {
+        const id = req.params.id;
+        const result = await client.query(query, [id])
+        console.log(result)
+        if (result.rowCount == 1) {
+            res.send(result.rows[0]);
+        } else {
+            res.send({ message: "No tool found with id=" + id });
+        }
+    } catch (err) {
+        console.log("error", err.stack)
+    }
+});
 
 module.exports = router;
