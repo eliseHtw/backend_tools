@@ -56,4 +56,34 @@ router.get('/tools/:id', async(req, res) => {
     }
 });
 
+//update one entry
+router.put('/tools/:id', async(req, res) => {
+    const query = `SELECT * FROM tools WHERE id=$1`;
+
+    let id = req.params.id;
+    const result = await client.query(query, [id])
+    if (result.rowCount > 0) {
+        let tool = result.rows[0];
+        let kategorie = (req.body.kategorie) ? req.body.kategorie : tool.kategorie;
+        let ausleihen = (req.body.ausleihen) ? req.body.ausleihen : tool.ausleihen;
+        let art = (req.body.art) ? req.body.art : tool.art;
+        let status = (req.body.status) ? req.body.status: tool.status;
+
+        const updatequery = `UPDATE tools Set
+            kategorie = $1,
+            ausleihen = $2,
+            art = $3,
+            status = $4
+            WHERE id=$5;`;
+        const updateresult = await client.query(updatequery, [kategorie, ausleihen, art, status, id]);
+        console.log(updateresult)
+        res.send({ id, kategorie, ausleihen, art, status });
+    } else {
+        res.status(404)
+        res.send({
+            error: "Tools with id=" + id + " does not exist!"
+        })
+    }
+});
+
 module.exports = router;
