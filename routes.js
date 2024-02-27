@@ -25,7 +25,7 @@ router.post('/tools', async(req, res) => {
     let kategorie = (req.body.kategorie) ? req.body.kategorie : null;
     let ausleihen = (req.body.ausleihen) ? req. body.ausleihen : null;
     let art = (req.body.art) ? req.body.art : null;
-    let status = (req.body.status) ? req.body.status : null;
+    let status = (req.body.status);
 
     const query = `INSERT INTO tools(kategorie, ausleihen, art, status) VALUES ($1, $2, $3, $4) RETURNING *; `
 
@@ -67,7 +67,7 @@ router.put('/tools/:id', async(req, res) => {
         let kategorie = (req.body.kategorie) ? req.body.kategorie : tool.kategorie;
         let ausleihen = (req.body.ausleihen) ? req.body.ausleihen : tool.ausleihen;
         let art = (req.body.art) ? req.body.art : tool.art;
-        let status = (req.body.status) ? req.body.status: tool.status;
+        let status = (req.body.status);
 
         const updatequery = `UPDATE tools Set
             kategorie = $1,
