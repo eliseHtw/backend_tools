@@ -8,7 +8,7 @@ initdb.get('/', async(req, res) => {
     //Anlegen der Tabelle tools
     let query = `
             DROP TABLE IF EXISTS tools;
-            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), ausleihen VARCHAR(50), art VARCHAR(100), status BOOLEAN)
+            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), artikel VARCHAR(50), details VARCHAR(100), status BOOLEAN)
             `;
 
     try {
@@ -32,7 +32,7 @@ initdb.get('/', async(req, res) => {
         ["Bastelkram", "Raspberry Pis", "10 Stück", true]
     ];
 
-    const paramquery = format('INSERT INTO tools(kategorie, ausleihen, art, status) VALUES %L RETURNING *', values);
+    const paramquery = format('INSERT INTO tools(kategorie, artikel, details, status) VALUES %L RETURNING *', values);
 
     try {
         const result = await client.query(paramquery)

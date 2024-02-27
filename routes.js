@@ -23,14 +23,14 @@ router.get('/tools', async(req, res) => {
 // post one tool
 router.post('/tools', async(req, res) => {
     let kategorie = (req.body.kategorie) ? req.body.kategorie : null;
-    let ausleihen = (req.body.ausleihen) ? req. body.ausleihen : null;
-    let art = (req.body.art) ? req.body.art : null;
+    let artikel = (req.body.artikel) ? req. body.artikel : null;
+    let details = (req.body.details) ? req.body.details : null;
     let status = (req.body.status);
 
-    const query = `INSERT INTO tools(kategorie, ausleihen, art, status) VALUES ($1, $2, $3, $4) RETURNING *; `
+    const query = `INSERT INTO tools(kategorie, artikel, details, status) VALUES ($1, $2, $3, $4) RETURNING *; `
 
     try {
-        const result = await client.query(query, [kategorie, ausleihen, art, status])
+        const result = await client.query(query, [kategorie, artikel, details, status])
         console.log(res)
         res.send(result.rows[0]);
     } catch (err) {
@@ -65,24 +65,42 @@ router.put('/tools/:id', async(req, res) => {
     if (result.rowCount > 0) {
         let tool = result.rows[0];
         let kategorie = (req.body.kategorie) ? req.body.kategorie : tool.kategorie;
-        let ausleihen = (req.body.ausleihen) ? req.body.ausleihen : tool.ausleihen;
-        let art = (req.body.art) ? req.body.art : tool.art;
+        let artikel = (req.body.artikel) ? req.body.artikel : tool.artikel;
+        let details = (req.body.details) ? req.body.details : tool.details;
         let status = (req.body.status);
 
         const updatequery = `UPDATE tools Set
             kategorie = $1,
-            ausleihen = $2,
-            art = $3,
+            artikel = $2,
+            details = $3,
             status = $4
             WHERE id=$5;`;
-        const updateresult = await client.query(updatequery, [kategorie, ausleihen, art, status, id]);
+        const updateresult = await client.query(updatequery, [kategorie, artikel, details, status, id]);
         console.log(updateresult)
-        res.send({ id, kategorie, ausleihen, art, status });
+        res.send({ id, kategorie, artikel, details, status });
     } else {
         res.status(404)
         res.send({
             error: "Tools with id=" + id + " does not exist!"
         })
+    }
+});
+
+// delete one entry via id
+router.delete('/tools/:id', async(req, res) => {
+    const query = `DELETE FROM tools WHERE id=$1`;
+
+    try {
+        const id = req.params.id;
+        const result = await client.query(query, [id])
+        console.log(result)
+        if (result.rowCount == 1) {
+            res.send({ message: "Tool with id=" + id + " deleted" });
+        } else {
+            res.send({ message: "No tool found with id=" + id });
+        }
+    } catch (err) {
+        console.log(err.stack)
     }
 });
 
