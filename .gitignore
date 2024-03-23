@@ -131,3 +131,6 @@ dist
 
 # for Mac
 .DS_Storage
+
+
+package-lock.json

@@ -5,20 +5,20 @@ const format = require('pg-format');
 
 initdb.get('/', async(req, res) => {
 
-    //Anlegen der Tabelle tools
-    let query = `
+    // Anlegen der Tabelle tools
+    let dbInitHeader = `
             DROP TABLE IF EXISTS tools;
-            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), artikel VARCHAR(50), details VARCHAR(100), status BOOLEAN)
+            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), artikel VARCHAR(50), details VARCHAR(255), status BOOLEAN);
             `;
 
     try {
-        await client.query(query)
-        console.log("Table created successfully ...")
+        await client.query(dbInitHeader);
+        console.log(`Table tools in database ${process.env.PGDATABASE} created successfully ...`);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 
-    // Befüllen der Tabelle tools mit 10 Einträgen
+    // Befüllen der Tabelle tools mit den ersten Einträgen
     const values = [
         ["Kleinkram", "Straßenmalkreide", "Paket á ca. 20 Stück", true],
         ["Technik", "Soundsystem groß", "Mischpult, 2 große Boxen, Kabel / Anschluss", true],
@@ -32,15 +32,15 @@ initdb.get('/', async(req, res) => {
         ["Bastelkram", "Raspberry Pis", "10 Stück", true]
     ];
 
-    const paramquery = format('INSERT INTO tools(kategorie, artikel, details, status) VALUES %L RETURNING *', values);
+    const dbInitContent = format('INSERT INTO tools(kategorie, artikel, details, status) VALUES %L RETURNING *', values);
 
     try {
-        const result = await client.query(paramquery)
-        console.log("10 entries inserted ...")
-        res.status(200)
-        res.send(result.rows)
+        const result = await client.query(dbInitContent);
+        console.log(`${result.rowCount} entries inserted ...`);
+        res.status(200);
+        res.send(result.rows);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 });
 

@@ -1,4 +1,5 @@
 const pg = require('pg');
+require('dotenv').config();
 
 const client = new pg.Client({
     user: process.env.PGUSER,
@@ -10,9 +11,9 @@ const client = new pg.Client({
 
 client.connect(err => {
     if (err) {
-        console.log(err);
+        console.log(`database NOT connected`, err);
     } else {
-        console.log('Connection to DB ...');
+        console.log(`connected with database: ${process.env.PGDATABASE} ...`);
     }
 });
 
