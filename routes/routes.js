@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get all entries
 router.get('/tools', async(req, res) => {
-    const getAllTools = `SELECT * FROM tools; `;
+    const getAllTools = `SELECT * FROM tools ORDER BY id;`;
 
     try {
         const result = await client.query(getAllTools);
