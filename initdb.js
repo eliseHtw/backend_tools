@@ -8,7 +8,7 @@ initdb.get('/', async(req, res) => {
     // Anlegen der Tabelle tools
     let dbInitHeader = `
             DROP TABLE IF EXISTS tools;
-            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), artikel VARCHAR(50), details VARCHAR(255), status BOOLEAN);
+            CREATE TABLE tools(id serial PRIMARY KEY, kategorie VARCHAR(50), artikel VARCHAR(50), details VARCHAR(255), status VARCHAR(255));
             `;
 
     try {
@@ -20,16 +20,16 @@ initdb.get('/', async(req, res) => {
 
     // Befüllen der Tabelle tools mit den ersten Einträgen
     const values = [
-        ["Kleinkram", "Straßenmalkreide", "Paket á ca. 20 Stück", true],
-        ["Technik", "Soundsystem groß", "Mischpult, 2 große Boxen, Kabel / Anschluss", true],
-        ["Technik", "Soundsystem klein", "Box mit Rollen und Teleskopgriff, Kabel / Anschluss / Bluetooth", true],
-        ["Technik", "Bühne", "6 Teile á 1*2m", false],
-        ["Transport", "Bollerwagen, z.B. für Getränke", "50*80 cm, 30 cm hoch, plus Rollen und Griff", true],
-        ["Übernachtung", "Set Schlafsack und Isomatte", "jeweils als Rolle verpackt", true],
-        ["Übernachtung", "Set Zelt, Schlafsack und Isomatte", "jeweils als Rolle verpackt", true],
-        ["Versorgung", "Kanister und Becher für Getränke (auch heiß)", "2 große Kanister á 10l, 60 Pfandbecher", true],
-        ["Kommunikation", "Telefone", "20 Handys (nicht smart)", true],
-        ["Bastelkram", "Raspberry Pis", "10 Stück", true]
+        ["Kleinkram", "Straßenmalkreide", "Paket á ca. 20 Stück", "verfügbar"],
+        ["Technik", "Soundsystem groß", "Mischpult, 2 große Boxen, Kabel / Anschluss", "nicht verfügbar"],
+        ["Technik", "Soundsystem klein", "Box mit Rollen und Teleskopgriff, Kabel / Anschluss / Bluetooth", "verfügbar"],
+        ["Technik", "Bühne", "6 Teile á 1*2m", "verfügbar"],
+        ["Transport", "Bollerwagen, z.B. für Getränke", "50*80 cm, 30 cm hoch, plus Rollen und Griff", "verfügbar"],
+        ["Übernachtung", "Set Schlafsack und Isomatte", "jeweils als Rolle verpackt", "verfügbar"],
+        ["Übernachtung", "Set Zelt, Schlafsack und Isomatte", "jeweils als Rolle verpackt", "verfügbar"],
+        ["Versorgung", "Kanister und Becher für Getränke (auch heiß)", "2 große Kanister á 10l, 60 Pfandbecher", "verfügbar"],
+        ["Kommunikation", "Telefone", "20 Handys (nicht smart)", "verfügbar"],
+        ["Bastelkram", "Raspberry Pis", "10 Stück", "verfügbar"]
     ];
 
     const dbInitContent = format('INSERT INTO tools(kategorie, artikel, details, status) VALUES %L RETURNING *', values);

@@ -20,7 +20,7 @@ router.post('/tools', async(req, res) => {
     let kategorie = (req.body.kategorie) ? req.body.kategorie : null;
     let artikel = (req.body.artikel) ? req. body.artikel : null;
     let details = (req.body.details) ? req.body.details : null;
-    let status = (req.body.status);
+    let status = (req.body.status) ? req.body.status: null;
 
     const postOneTool = `INSERT INTO tools(kategorie, artikel, details, status) VALUES ($1, $2, $3, $4) RETURNING * ;`;
 

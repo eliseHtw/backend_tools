@@ -109,6 +109,7 @@ router.get('/:username', async(req, res) => {
         if (result.rowCount == 1) {
             res.send(result.rows[0]);
         } else {
+            res.status(404);
             res.send({ message: "No user found with username=" + username });
         }
     } catch (err) {
@@ -127,6 +128,7 @@ router.delete('/:id', async(req, res) => {
         if (result.rowCount == 1) {
             res.send({ message : "User with id=" + id + " deleted" });
         } else {
+            res.status(404);
             res.send({ message: "No user found with id=" + id});
         }
     } catch (err) {
