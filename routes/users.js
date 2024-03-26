@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db');
 const bcrypt = require('bcrypt');
+const format = require('pg-format');
 require('dotenv').config();
 
 // Anlegen der Tabelle users
-router.get('/initUsers', async(req, res) => {
+router.get('/users/initUsers', async(req, res) => {
     let usersTable = `
         DROP TABLE IF EXISTS users;
         CREATE TABLE users(id serial PRIMARY KEY, username VARCHAR(255), 
@@ -16,6 +17,22 @@ router.get('/initUsers', async(req, res) => {
         await client.query(usersTable);
         console.log(`Table users in database ${process.env.PGDATABASE} created successfully ...`);
     } catch(err) {
+        console.log(err);
+    }
+
+    // Befüllen der Tabelle users mit den ersten Einträgen
+    const values = [
+        ["user1", "hallolalloallo", "abc@rt.sc", "admin"]
+    ];
+
+    const dbInitContent = format('INSERT INTO users(username, password, email, role) VALUES %L RETURNING *', values);
+
+    try {
+        const result = await client.query(dbInitContent);
+        console.log(`${result.rowCount} entries inserted ...`);
+        res.status(200);
+        res.send(result.rows);
+    } catch (err) {
         console.log(err);
     }
 });
@@ -56,9 +73,9 @@ router.post('/', async(req, res) => {
     } else if (checkname.rowCount > 0) {
         res.send({ message: `Name ${username} already exists` });
     } else {
-        const anfrage = `INSERT INTO users(username, password, email, role) VALUES($1, $2, $3, $4) RETURNING *;`;
+        const registerUser = `INSERT INTO users(username, password, email, role) VALUES($1, $2, $3, $4) RETURNING *;`;
         try {
-            const result = await client.query(anfrage, [username, hashPassword, email, role]);
+            const result = await client.query(registerUser, [username, hashPassword, email, role]);
             console.log('result', result.rows[0]);
             res.send(result.rows[0]);
         } catch (err) {
@@ -138,7 +155,7 @@ router.delete('/:id', async(req, res) => {
 
 // change data of user with id 
 // jetzt auch mit abfrage, ob E-Mail-Adresse oder Username schon existiert
-router.put('/users/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     const anfrage = `SELECT * FROM users WHERE id=$1;`;
 
     let id = req.params.id;
