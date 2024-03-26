@@ -5,7 +5,7 @@
 ### Voraussetzungen zur Installation
 
 - [node.js](nodejs.org) Version 20.10.0 (andere Versionen nicht geprüft)
-- PostgreSQL-Datenbank Version 14.11 (andere versionen nicht geprüft)
+- PostgreSQL-Datenbank Version 14.11 (andere Versionen nicht geprüft)
 
 ### Anleitung zur Installation
 
