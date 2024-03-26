@@ -20,7 +20,7 @@
     PGHOST=Servername/-IP-Adresse_der_eigenen_Datenbank
     PGDATABASE=Name_der_eigenen_Datenbank
     PGPASSWORD=Passwort_der_eigenen_Datenbank
-    PGPORT=Port_der_eigenen_Datenbank.
+    PGPORT=Port_der_eigenen_Datenbank
 ```
 - Den Backend-Server starten: `npm run start`. Wenn das Backend erfolgreich gestartet wurde, sollte es dann so aussehen:  
 ![backend_started](https://github.com/eliseHtw/backend_tools/blob/main/images_readme/backend_started.png)
