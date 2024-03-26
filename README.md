@@ -22,7 +22,7 @@
     PGPASSWORD=Passwort_der_eigenen_Datenbank
     PGPORT=Port_der_eigenen_Datenbank.
 ```
-- Den Backend-Server starten: `npm run start`. Wenn das Backend erfolgreich gestartet wurde, sollte es dann so aussehen:
+- Den Backend-Server starten: `npm run start`. Wenn das Backend erfolgreich gestartet wurde, sollte es dann so aussehen:  
 ![backend_started](https://github.com/eliseHtw/backend_tools/blob/main/images_readme/backend_started.png)
 - Der Server ist dann unter `localhost:4000` erreichbar, z.B. im Browser: [http://localhost:4000](http://localhost:4000). Dort kann dann zu [/tools](http://localhost:4000/tools) oder [/users](http://localhost:4000/users) navigiert werden
 - Für die Befüllung der Datenbank: `localhost:4000/init` ausführen.
