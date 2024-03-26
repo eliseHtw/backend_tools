@@ -17,13 +17,13 @@
 - Die Umgebungsvariablen als Verbindung zur Datenbank in der `.env` Datei erstellen:
 ```env
     PGUSER=Benutzer*in_der_eigenen_Datenbank
-    PGHOST=Servername/-URL_der_eigenen_Datenbank
-    PGDATABASE=Name_der_eigenen_Datenbank(tools)
+    PGHOST=Servername/-IP-Adresse_der_eigenen_Datenbank
+    PGDATABASE=Name_der_eigenen_Datenbank(z.B._tools)
     PGPASSWORD=Passwort_der_eigenen_Datenbank
     PGPORT=Port_der_eigenen_Datenbank.
 ```
 - Den Backend-Server starten: `npm run start`. Wenn das Backend erfolgreich gestartet wurde, sollte es dann so aussehen:  
 ![backend_started](https://github.com/eliseHtw/backend_tools/blob/main/images_readme/backend_started.png)
 - Der Server ist dann unter `localhost:4000` erreichbar, z.B. im Browser: [http://localhost:4000](http://localhost:4000). Dort kann dann zu [/tools](http://localhost:4000/tools) oder [/users](http://localhost:4000/users) navigiert werden
-- Für die Neubefüllung der tools-Datenbank: `localhost:4000/init` ausführen.
+- Für die Neubefüllung der tools-Tabelle: `localhost:4000/init` ausführen (bereits vorhandene Einträge werden gelöscht). Für die Initialisierung der users-Tabelle: `localhost:4000/initUsers` (ohne Einträge, bisherige Einträge werden gelöscht).
 - Weiter zum Frontend [frontend_tools](https://github.com/eliseHtw/frontend_tools.git)...
