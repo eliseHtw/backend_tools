@@ -18,7 +18,7 @@
 ```env
     PGUSER=Benutzer*in_der_eigenen_Datenbank
     PGHOST=Servername/-IP-Adresse_der_eigenen_Datenbank
-    PGDATABASE=Name_der_eigenen_Datenbank(z.B._tools)
+    PGDATABASE=Name_der_eigenen_Datenbank
     PGPASSWORD=Passwort_der_eigenen_Datenbank
     PGPORT=Port_der_eigenen_Datenbank.
 ```
