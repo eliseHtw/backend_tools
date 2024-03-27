@@ -25,6 +25,7 @@ router.get('/users/initUsers', async(req, res) => {
         ["user1", "hallolalloallo", "abc@rt.sc", "admin"]
     ];
 
+    values[0][1] = await bcrypt.hash(values[0][1], 12);
     const dbInitContent = format('INSERT INTO users(username, password, email, role) VALUES %L RETURNING *', values);
 
     try {
